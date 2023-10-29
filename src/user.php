@@ -7,7 +7,7 @@ class User {
     private $password;
     private $role;
 
-    public function authorization($login, $pass) : bool
+    public function authorization(string $login, string $pass) : bool
     {
         $this->login = filter_var(trim($login), FILTER_UNSAFE_RAW);
         $this->password = filter_var(trim($pass), FILTER_UNSAFE_RAW);
@@ -38,4 +38,15 @@ class User {
         return false;
     }
 
+    public function getUserQuery(int $year = 3) : array|null
+    {
+        $db = new DataBase();
+        $sql = "SELECT u.name FROM users u 
+                LEFT JOIN users_pets up ON up.user_id = u.id 
+                LEFT JOIN pets p ON up.pet_id = p.id 
+                WHERE p.age > '$year'";
+        $usersName = $db->dbQuery($sql);
+
+        return $usersName;
+    }
 }

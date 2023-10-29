@@ -5,7 +5,7 @@ class DataBase {
 
     function __construct()
     {
-        $config = require_once($_SERVER['DOCUMENT_ROOT'] . '/config/config.php');
+        $config = require($_SERVER['DOCUMENT_ROOT'] . '/config/config.php');
 
         $this->db = new mysqli($config['servername'], $config['username'], $config['password'], $config['database']);
 
@@ -26,6 +26,6 @@ class DataBase {
 
     function __destruct()
     {
-        mysqli_close($this->db);
+        $this->db->close();
     }
 }
