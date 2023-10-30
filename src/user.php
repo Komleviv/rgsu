@@ -2,10 +2,8 @@
 require_once __DIR__ . '\database.php';
 
 class User {
-    public $name;
     public $login;
     private $password;
-    private $role;
 
     public function authorization(string $login, string $pass) : bool
     {
@@ -27,7 +25,7 @@ class User {
 
         $db = new DataBase();
         $sql = "SELECT login FROM users WHERE login = '$this->login' AND password = '$this->password'";
-        $loginName = $db->dbQuery($sql);
+        $loginName = $db->dbSelectQuery($sql);
 
         if (isset($loginName)) {
             setcookie('user', $loginName['login'], time() + 3600, "/");
@@ -38,14 +36,14 @@ class User {
         return false;
     }
 
-    public function getUserQuery(int $year = 3) : array|null
+    public function getOwnerQuery(int $year = 3) : array|null
     {
         $db = new DataBase();
-        $sql = "SELECT u.name FROM users u 
-                LEFT JOIN users_pets up ON up.user_id = u.id 
+        $sql = "SELECT u.name FROM owners u 
+                LEFT JOIN owners_pets up ON up.owner_id = u.id 
                 LEFT JOIN pets p ON up.pet_id = p.id 
                 WHERE p.age > '$year'";
-        $usersName = $db->dbQuery($sql);
+        $usersName = $db->dbSelectQuery($sql);
 
         return $usersName;
     }
