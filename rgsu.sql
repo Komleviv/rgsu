@@ -27,7 +27,7 @@ CREATE TABLE `pets` (
   `nickname` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `breed_name_id` int DEFAULT NULL,
   `gender` int DEFAULT NULL,
-  `age` int DEFAULT NULL
+  `age` float DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `pets_relatives` (
@@ -55,7 +55,7 @@ CREATE TABLE `types_breeds` (
 
 CREATE TABLE `users` (
   `id` int NOT NULL,
-  `owner_id` int NOT NULL,
+  `name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `login` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `password` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -102,6 +102,9 @@ ALTER TABLE `pets_relatives`
   MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 ALTER TABLE `pets_rewards`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `users`
   MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 
