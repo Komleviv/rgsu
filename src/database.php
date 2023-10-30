@@ -15,7 +15,12 @@ class DataBase {
         }
     }
 
-    public function dbSelectQuery($sql): array|null
+    /**
+     * Метод выборки данных из базы данных
+     * @param string $sql
+     * @return array|null
+     */
+    public function dbSelectQuery(string $sql): array|null
     {
         $query = $this->db->query($sql);
 
@@ -23,12 +28,20 @@ class DataBase {
             echo "Ошибка: " . $this->db->error;
         }
 
-        $result = $query->fetch_assoc();
+        while ($row = $query->fetch_assoc())
+        {
+            $result[] = $row;
+        }
 
-        return $result;
+        return $result ?? [];
     }
 
-    public function dbQuery($sql): void
+    /**
+     * Метод для выполнения вставки данных в базу данных
+     * @param string $sql
+     * @return void
+     */
+    public function dbQuery(string $sql): void
     {
         $query = $this->db->query($sql);
 
@@ -37,7 +50,12 @@ class DataBase {
         }
     }
 
-    public function lastIdQuery($table): int
+    /**
+     * Метод первого свобного id в указанной таблице
+     * @param string $sql
+     * @return int
+     */
+    public function lastIdQuery(string $table): int
     {
         $sql = "SELECT id FROM `$table` ORDER BY id DESC LIMIT 1";
         $query = $this->db->query($sql);
