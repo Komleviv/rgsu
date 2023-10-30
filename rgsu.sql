@@ -67,7 +67,7 @@ ALTER TABLE `owners`
 ALTER TABLE `owners_pets`
   ADD PRIMARY KEY (`id`),
   ADD KEY `owners_pets_ibfk_1` (`pet_id`),
-  ADD KEY `owner_id` (`owner_id`);
+  ADD KEY `owners_pets_ibfk_2` (`owner_id`);
 
 ALTER TABLE `pets`
   ADD PRIMARY KEY (`id`),
@@ -77,12 +77,12 @@ ALTER TABLE `pets`
 ALTER TABLE `pets_relatives`
   ADD PRIMARY KEY (`id`),
   ADD KEY `pets_relatives_ibfk_2` (`children_code`),
-  ADD KEY `parent_code` (`parent_code`);
+  ADD KEY `pets_relatives_ibfk_3` (`parent_code`);
 
 ALTER TABLE `pets_rewards`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `pets_rewards_ibfk_3` (`pet_id`),
-  ADD KEY `reward_id` (`reward_id`);
+  ADD KEY `reward_id` (`reward_id`),
+  ADD KEY `pets_rewards_ibfk_3` (`pet_id`);
 
 ALTER TABLE `rewards`
   ADD PRIMARY KEY (`id`);
@@ -106,18 +106,18 @@ ALTER TABLE `pets_rewards`
 
 
 ALTER TABLE `owners_pets`
-  ADD CONSTRAINT `owners_pets_ibfk_1` FOREIGN KEY (`pet_id`) REFERENCES `pets` (`id`),
-  ADD CONSTRAINT `owners_pets_ibfk_2` FOREIGN KEY (`owner_id`) REFERENCES `owners` (`id`);
+  ADD CONSTRAINT `owners_pets_ibfk_1` FOREIGN KEY (`pet_id`) REFERENCES `pets` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `owners_pets_ibfk_2` FOREIGN KEY (`owner_id`) REFERENCES `owners` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE `pets`
   ADD CONSTRAINT `pets_ibfk_1` FOREIGN KEY (`breed_name_id`) REFERENCES `types_breeds` (`id`);
 
 ALTER TABLE `pets_relatives`
-  ADD CONSTRAINT `pets_relatives_ibfk_2` FOREIGN KEY (`children_code`) REFERENCES `pets` (`code`),
-  ADD CONSTRAINT `pets_relatives_ibfk_3` FOREIGN KEY (`parent_code`) REFERENCES `pets` (`code`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `pets_relatives_ibfk_2` FOREIGN KEY (`children_code`) REFERENCES `pets` (`code`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `pets_relatives_ibfk_3` FOREIGN KEY (`parent_code`) REFERENCES `pets` (`code`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE `pets_rewards`
-  ADD CONSTRAINT `pets_rewards_ibfk_3` FOREIGN KEY (`pet_id`) REFERENCES `pets` (`id`),
+  ADD CONSTRAINT `pets_rewards_ibfk_3` FOREIGN KEY (`pet_id`) REFERENCES `pets` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `pets_rewards_ibfk_4` FOREIGN KEY (`reward_id`) REFERENCES `rewards` (`id`);
 COMMIT;
 
