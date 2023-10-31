@@ -7,7 +7,7 @@ class User {
     private $password;
 
     /**
-     * Метод фильтрует, проверяет и записывает в базу данных данные, введённые в форму регистрации
+     * Метод фильтрует, проверяет и записывает в базу данные, введённые в форму регистрации
      * @param string $name
      * @param string $login
      * @param string $pass
@@ -21,7 +21,7 @@ class User {
 
         if(mb_strlen($this->name) < 4 || mb_strlen($this->name) > 32)
         {
-            echo "Недопустимая длина логина. Логин должен содержать от 4 до 16 символов.";
+            echo "Недопустимая длина логина. Логин должен содержать от 4 до 32 символов.";
             exit();
         }
         if(mb_strlen($this->login) < 4 || mb_strlen($this->login) > 16)

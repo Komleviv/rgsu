@@ -33,7 +33,7 @@ class File
 
                $gender = $this->genderSet($petGender[0]);
 
-               // Проверка на существование типа животного и парода в таблице
+               // Проверка на существование типа животного и породы в базе данных
                $breedIdExist = $db->dbSelectQuery("SELECT id FROM types_breeds WHERE type = '$petType[0]' AND breed_name = '$petBreed[0]'");
                if (empty($breedIdExist)) {
                    $db->dbQuery("INSERT INTO types_breeds (id, type, breed_name) VALUES ('$breedId', '$petType[0]', '$petBreed[0]')");
